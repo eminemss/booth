@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script
+      src="https://kit.fontawesome.com/e8fa2e31b4.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="sidebar">
+        <div class="sidehead">
+          <hr style="margin: 15px 0; border: 1px solid #eee" />
+        </div>
+        <div class="sidebody" style="height: 69vh">
+          <div class="searchBar">
+            <input
+              placeholder="Search..."
+              id="searchBar"
+              name="searchBar"
+              type="text"
+            />
+            <i class="fa-solid fa-magnifying-glass glass" id="btn"></i>
+          </div>
+        </div>
+        <div class="sidefoot">
+          <hr style="margin: 15px 0; border: 1px solid #eee" />
+        </div>
+      </div>
+      <div class="data">
+        <div class="top">
+          <p>12 - Cooper</p>
+        </div>
+        <div class="header">
+          <p style="color: gold">Frame Of Laughter</p>
+        </div>
+        <div class="body">
+          <div id="root"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const product = [
+        {
+          id: 0,
+          image: "images/pic1.jpg",
+          title: "12 Cooper",
+        },
+        {
+          id: 1,
+          image: "images/pic2.jpg",
+          title: "11 acacia",
+        },
+      ];
+
+      const categories = [
+        ...new Set(
+          product.map((item) => {
+            return item;
+          })
+        ),
+      ];
+
+      document.getElementById("searchBar").addEventListener("keyup", (e) => {
+        const searchData = e.target.value.toLowerCase();
+        const filteredData = categories.filter((item) => {
+          return item.title.toLowerCase().includes(searchData);
+        });
+        displayItem(filteredData);
+      });
+
+      const displayItem = (items) => {
+        document.getElementById("root").innerHTML = items
+          .map((item) => {
+            var { image, title, price } = item;
+            return `<div class='box'>
+                        <div class='img-box'>
+                            <img class='images' src=${image}></img>
+                        </div> 
+                        <div class='bottom'>
+                            <p>${title}</p>
+                            <a class="btn" href="${image}" download="${image}"><i class="fa fa-download"></i>Download</a>
+
+                       
+                        </div>
+                    </div>`;
+          })
+          .join("");
+      };
+      displayItem(categories);
+    </script>
+  </body>
+</html>
